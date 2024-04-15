@@ -1,0 +1,10 @@
+* {
+    box-sizing: 0;
+    margin: 0;
+}
+
+.boxcenter {
+    display: flex;
+    justify-content: center;
+    border: solid 1px black;
+}
