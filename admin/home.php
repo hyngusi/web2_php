@@ -1,1 +1,1 @@
-<h1>Control pannel</h1>
+<h1>control pannel</h1>
