@@ -4,7 +4,7 @@
  */
 function pdo_get_connection()
 {
-    $dburl = "mysql:host=localhost;dbname=doanweb2;charset=utf8";
+    $dburl = "mysql:host=localhost;dbname=shopmatkinh_db;charset=utf8";
     $username = 'root';
     $password = '';
 

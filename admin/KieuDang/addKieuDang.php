@@ -1,16 +1,12 @@
 <div class="row">
     <div>
-        <H1>Thêm mới loại hàng hóa</H1>
+        <H1>Thêm mới đối tượng sử dụng</H1>
     </div>
     <div>
-        <form action="index.php?act=adddm" method="post">
+        <form action="index.php?act=addkieuDang" method="post">
             <div>
-                Mã loại </br>
-                <input type="text" name="maloai">
-            </div>
-            <div>
-                Tên loại </br>
-                <input type="text" name="tenloai">
+                Kiểu dáng </br>
+                <input type="text" name="ten">
             </div>
             <div>
                 <input type="submit" name="themmoi" value="Thêm mới">

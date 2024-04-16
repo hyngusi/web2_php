@@ -5,20 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=<?php echo time(); ?>">
 </head>
 
 <body>
-    <div class="boxcenter">
-        <h1>Admin</h1>
-    </div>
-    <div class="row mb menu">
-        <ul>
-            <li><a href="index.php">Trang chủ</a></li>
-            <li><a href="index.php?act=adddm">Danh mục</a></li>
-            <li><a href="index.php?act=addsp">Hàng hóa</a></li>
-            <li><a href="index.php?act=dskh">Khách hàng</a></li>
-            <li><a href="index.php?act=dsbl">Bình luận</a></li>
-            <li><a href="index.php?act=thongke">Thống kê</a></li>
-        </ul>
-    </div>
+    <div class="container">
+        <div class="sidebar">
+            <!-- Nội dung của sidebar -->
+            <div class="boxcenter">
+                <h1>Admin</h1>
+            </div>
+            <div class="row mb menu">
+                <ul>
+                    <li><a href="index.php">Trang chủ</a></li>
+                    <li><a href="index.php?act=addsp">Sản phẩm</a></li>
+                    <li><a href="index.php?act=addChatLieuSp">Chất liệu sản phẩm</a></li>
+                    <li><a href="index.php?act=addDoiTuongSd">Đối tượng sử dụng</a></li>
+                    <li><a href="index.php?act=addKieuDang">Kiểu dáng</a></li>
+                    <li><a href="index.php?act=dskh">Người dùng</a></li>
+                    <li><a href="index.php?act=dskh">Hóa đơn</a></li>
+                    <li><a href="index.php?act=thongke">Thống kê</a></li>
+                </ul>
+            </div>
+        </div>
