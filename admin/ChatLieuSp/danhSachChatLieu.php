@@ -14,8 +14,8 @@
             <?php
             foreach ($danhsach as $item) {
                 extract($item);
-                $sua = "index.php?act=suaChatLieu&id=" . $ma;
-                $xoa = "index.php?act=xoaChatLieu&id=" . $ma;
+                $sua = "index.php?act=suaChatLieuSp&id=" . $ma;
+                $xoa = "index.php?act=xoaChatLieuSp&id=" . $ma;
 
                 echo '<tr>
                 <td><input type="checkbox"></td>
