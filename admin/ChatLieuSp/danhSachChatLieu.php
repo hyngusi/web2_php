@@ -11,14 +11,21 @@
                 <td></td>
             </tr>
 
-            <?php foreach ($danhsach as $item): ?>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td><?= $item['ma'] ?></td>
-                    <td><?= $item['ten'] ?></td>
-                    <td><input type="button" value="Sửa"><input type="button" value="Xóa"></td>
-                </tr>
-            <?php endforeach; ?>
+            <?php
+            foreach ($danhsach as $item) {
+                extract($item);
+                $sua = "index.php?act=suaChatLieu&id=" . $ma;
+                $xoa = "index.php?act=xoaChatLieu&id=" . $ma;
+
+                echo '<tr>
+                <td><input type="checkbox"></td>
+                <td>' . $ma . '</td>
+                <td>' . $ten . '</td>
+                <td><a href="' . $sua . '"><input type="button" value="Sửa"></a>
+                     <a href="' . $xoa . '"><input type="button" value="Xóa"></a></td>
+            </tr>';
+            }
+            ?>
         </table>
 
         <div class="table-footer">
