@@ -36,6 +36,43 @@ switch ($act) {
         include 'KieuDang/addKieuDang.php';
         break;
 
+    case 'addSanPham':
+        if (isset($_POST['themmoi'])) {
+            $tenSP = $_POST['tenSP'];
+            $soluong = $_POST['soluong'];
+            $dongia = $_POST['dongia'];
+            $kieudang = $_POST['kieudang'];
+            $doituongsd = $_POST['doituongsd'];
+            $chatlieu = $_POST['chatlieu'];
+            $img = $_FILES['img']['name'];
+
+            $target_dir = "uploads/"; // Thư mục lưu trữ tệp
+            $target_file = $target_dir . basename($_FILES["img"]["name"]); // Đường dẫn đầy đủ đến tệp được tải lên
+            if (move_uploaded_file($_FILES['img']['tmp_name'], $target_file)) {
+
+            } else {
+
+            }
+            // var_dump($kieudang, $doituongsd, $chatlieu);
+
+            $sql = "insert into sanpham (tenSP, soluong, dongia, makieudang, madoituongsd, machatlieu, img_src)
+                        values ('$tenSP','$soluong', '$dongia', '$kieudang', '$doituongsd', '$chatlieu', '$img')";
+            pdo_execute($sql);
+            $thongbao = "Thêm thành công";
+        }
+        $sql = "select * from kieudang";
+        $listkieudang = pdo_query($sql);
+
+        $sql = "select * from doituongsd";
+        $listdoituongsd = pdo_query($sql);
+
+        $sql = "select * from chatlieusp";
+        $listchatlieu = pdo_query($sql);
+
+        include 'SanPham/addSanpham.php';
+        break;
+
+
     // ----------------------------------------------------------------------------- get
     case 'danhSachChatLieu':
         $sql = "select * from chatlieusp";
@@ -48,6 +85,17 @@ switch ($act) {
         $danhsach = pdo_query($sql);
         // var_dump($danhsach);
         include 'DoiTuongSd/danhSachDoiTuong.php';
+        break;
+
+    case 'danhSachSanPham':
+        // $sql = "select * from sanpham";  
+        $sql = "select sp.*, cl.ten as chatlieu_ten, dt.ten as doituong_ten, kd.ten as kieudang_ten
+                from sanpham as sp
+                inner join chatlieusp as cl on sp.machatlieu = cl.ma
+                inner join doituongsd as dt on sp.madoituongsd = dt.ma
+                inner join kieudang as kd on sp.makieudang = kd.ma";
+        $danhsach = pdo_query($sql);
+        include 'SanPham/danhSachSp.php';
         break;
     // ----------------------------------------------------------------- delete
     case 'xoaChatLieuSp':

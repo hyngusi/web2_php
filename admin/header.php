@@ -13,12 +13,12 @@
         <div class="sidebar">
             <!-- Nội dung của sidebar -->
             <div class="boxcenter">
-                <h1>Admin</h1>
+                <H1>Admin</H1>
             </div>
             <div class="row mb menu">
                 <ul>
                     <li><a href="index.php">Trang chủ</a></li>
-                    <li><a href="index.php?act=addsp">Sản phẩm</a></li>
+                    <li><a href="index.php?act=addSanPham">Sản phẩm</a></li>
                     <li><a href="index.php?act=addChatLieuSp">Chất liệu sản phẩm</a></li>
                     <li><a href="index.php?act=addDoiTuongSd">Đối tượng sử dụng</a></li>
                     <li><a href="index.php?act=addKieuDang">Kiểu dáng</a></li>
