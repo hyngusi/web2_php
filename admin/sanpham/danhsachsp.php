@@ -14,7 +14,7 @@
                 <td>Đối tượng</td>
                 <td>Chất liệu</td>
                 <td>img</td>
-                <td></td>
+                <td style="width: 140px"></td>
 
             </tr>
 

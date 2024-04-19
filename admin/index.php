@@ -48,11 +48,7 @@ switch ($act) {
 
             $target_dir = "uploads/"; // Thư mục lưu trữ tệp
             $target_file = $target_dir . basename($_FILES["img"]["name"]); // Đường dẫn đầy đủ đến tệp được tải lên
-            if (move_uploaded_file($_FILES['img']['tmp_name'], $target_file)) {
-
-            } else {
-
-            }
+            move_uploaded_file($_FILES['img']['tmp_name'], $target_file);
             // var_dump($kieudang, $doituongsd, $chatlieu);
 
             $sql = "insert into sanpham (tenSP, soluong, dongia, makieudang, madoituongsd, machatlieu, img_src)
@@ -108,6 +104,20 @@ switch ($act) {
         include 'ChatLieuSp/danhSachChatLieu.php';
         break;
 
+    case 'xoaSanPham':
+        if (isset($_GET['id']) && $_GET['id'] > 0) {
+            $sql = "delete from sanpham where maSP=" . $_GET['id'];
+            pdo_execute($sql);
+        }
+        $sql = "select sp.*, cl.ten as chatlieu_ten, dt.ten as doituong_ten, kd.ten as kieudang_ten
+                from sanpham as sp
+                inner join chatlieusp as cl on sp.machatlieu = cl.ma
+                inner join doituongsd as dt on sp.madoituongsd = dt.ma
+                inner join kieudang as kd on sp.makieudang = kd.ma";
+        $danhsach = pdo_query($sql);
+        include 'SanPham/danhsachsp.php';
+        break;
+
     // ----------------------------------------------------------- update
     case 'suaChatLieuSp':
         if (isset($_GET['id']) && ($_GET['id'] > 0)) {
@@ -129,6 +139,66 @@ switch ($act) {
         $danhsach = pdo_query($sql);
         include 'ChatLieuSp/danhSachChatLieu.php';
         break;
+
+    case 'suaSanPham':
+        if (isset($_GET['id']) && ($_GET['id'] > 0)) {
+            $sql = "select sp.*, cl.ten as chatlieu_ten, dt.ten as doituong_ten, kd.ten as kieudang_ten
+                from sanpham as sp  
+                inner join chatlieusp as cl on sp.machatlieu = cl.ma
+                inner join doituongsd as dt on sp.madoituongsd = dt.ma
+                inner join kieudang as kd on sp.makieudang = kd.ma where sp.maSP=" . $_GET['id'];
+            $sanpham = pdo_query_one($sql);
+
+            $sql = "select * from kieudang";
+            $listkieudang = pdo_query($sql);
+
+            $sql = "select * from doituongsd";
+            $listdoituongsd = pdo_query($sql);
+
+            $sql = "select * from chatlieusp";
+            $listchatlieu = pdo_query($sql);
+        }
+
+        include 'SanPham/updateSp.php';
+        break;
+
+
+    case 'updateSanPham':
+        if (isset($_POST['capnhat'])) {
+            $maSP = $_POST['maSP'];
+            $tenSP = $_POST['tenSP'];
+            $soluong = $_POST['soluong'];
+            $dongia = $_POST['dongia'];
+            $kieudang = $_POST['makieudang'];
+            $doituongsd = $_POST['madoituongsd'];
+            $chatlieu = $_POST['machatlieu'];
+            $img = $_FILES['img']['name'];
+
+            $target_dir = "uploads/"; // Thư mục lưu trữ tệp
+            $target_file = $target_dir . basename($_FILES["img"]["name"]); // Đường dẫn đầy đủ đến tệp được tải lên
+            move_uploaded_file($_FILES['img']['tmp_name'], $target_file);
+
+            if ($img == '') {
+                $sql = "update sanpham set tenSP='$tenSP', soluong='$soluong',dongia='$dongia', 
+                makieudang='$kieudang',madoituongsd='$doituongsd', machatlieu='$chatlieu' 
+                where maSP='$maSP'";
+            } else
+                $sql = "update sanpham set tenSP='$tenSP', soluong='$soluong',dongia='$dongia', 
+            makieudang='$kieudang',madoituongsd='$doituongsd', machatlieu='$chatlieu', img_src='$img' 
+            where maSP='$maSP'";
+
+            pdo_execute($sql);
+        }
+        $sql = "select sp.*, cl.ten as chatlieu_ten, dt.ten as doituong_ten, kd.ten as kieudang_ten
+                from sanpham as sp
+                inner join chatlieusp as cl on sp.machatlieu = cl.ma
+                inner join doituongsd as dt on sp.madoituongsd = dt.ma
+                inner join kieudang as kd on sp.makieudang = kd.ma
+                order by sp.maSP";
+        $danhsach = pdo_query($sql);
+        include 'SanPham/danhsachsp.php';
+        break;
+
 
 
     default:
