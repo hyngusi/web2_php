@@ -2,6 +2,9 @@
     <div class="title">
         <H1>Danh sách</H1>
     </div>
+    <div id="pagination">
+
+    </div>
     <div class="table-container">
         <table class="data-table">
             <tr>
@@ -15,37 +18,67 @@
                 <td>Chất liệu</td>
                 <td>img</td>
                 <td style="width: 140px"></td>
-
             </tr>
 
-            <?php
-            foreach ($danhsach as $item) {
-                extract($item);
-                $sua = "index.php?act=suaSanPham&id=" . $maSP;
-                $xoa = "index.php?act=xoaSanPham&id=" . $maSP;
+            <tbody id="product-list">
+                <!-- Danh sách sản phẩm sẽ được hiển thị ở đây -->
+            </tbody>
 
-                $imgpath = './uploads/' . $img_src;
-                if (is_file($imgpath)) {
-                    $img = "<img src='" . $imgpath . "' height='80'>";
-                } else {
-                    $img = 'no img';
-                }
+            <script>
+                $(document).ready(function () {
+                    var productsPerPage = 10; // Số sản phẩm trên mỗi trang
+                    var currentPage = 1; // Trang hiện tại
 
-                echo '<tr>
-                <td><input type="checkbox"></td>
-                <td>' . $maSP . '</td>
-                <td>' . $tenSP . '</td>
-                <td>' . $soluong . '</td>
-                <td>' . $dongia . '</td>
-                <td>' . $kieudang_ten . '</td>
-                <td>' . $doituong_ten . '</td>
-                <td>' . $chatlieu_ten . '</td>
-                <td>' . $img . '</td>
-                <td><a href="' . $sua . '"><input type="button" value="Sửa"></a>
-                     <a href="' . $xoa . '"><input type="button" value="Xóa"></a></td>
-            </tr>';
-            }
-            ?>
+                    // Tính toán số lượng trang và tạo các nút phân trang
+                    var totalPages = Math.ceil(<?= $totalProducts ?> / productsPerPage);
+
+                    for (var i = 1; i <= totalPages; i++) {
+                        $('#pagination').append('<a href="#" class="page-link page-number" data-page="' + i + '">' + i + '</a>');
+                    }
+
+                    // Tự động tải trang 1
+                    loadPage(1);
+
+                    // Xử lý khi một nút phân trang được nhấp
+                    $('#pagination').on('click', '.page-link', function (e) {
+                        e.preventDefault();
+
+                        currentPage = $(this).data('page');
+
+                        loadPage(currentPage);
+                    });
+
+                    $('input[value="Xóa"]').click(function (e) {
+                        e.preventDefault();
+                        var confirmDelete = confirm('Bạn có chắc chắn muốn xóa sản phẩm đã chọn không?');
+                        if (confirmDelete) {
+                            // Xóa sản phẩm
+                        } else {
+                            // Người dùng đã hủy xóa
+                        }
+                    });
+
+                    // Hàm để tải một trang
+                    function loadPage(page) {
+                        $.ajax({
+                            url: 'SanPham/get_products.php',
+                            type: 'GET',
+                            data: { page: page },
+                            success: function (response) {
+                                $('#product-list').html(response);
+
+                                // Đánh dấu trang hiện tại
+                                $('.page-link').removeClass('current-page');
+                                $('.page-link[data-page="' + page + '"]').addClass('current-page');
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                console.log(textStatus, errorThrown);
+                            }
+                        });
+                    }
+                });
+            </script>
+
         </table>
 
         <div class="table-footer">

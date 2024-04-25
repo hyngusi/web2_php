@@ -2,9 +2,9 @@
 extract($sanpham);
 $imgpath = './uploads/' . $img_src;
 if (is_file($imgpath)) {
-    $img = "<img src='" . $imgpath . "' height='80'>";
+    $img = $imgpath;
 } else {
-    $img = 'no img';
+    $img = '';
 }
 ?>
 
@@ -61,8 +61,29 @@ if (is_file($imgpath)) {
             </div>
             <div class="row">
                 img: <input type="file" name="img">
-                <?= $img; ?>
+                <img class="image" src="<?= $img; ?>" height='80'">
+                <button onclick=" deleteImage(event)">Xóa</button>
             </div>
+
+            <script>
+                function deleteImage(event) {
+                    event.preventDefault();
+
+                    $.ajax({
+                        url: 'SanPham/delete_image.php',
+                        type: 'POST',
+                        data: {
+                            img: '<?= $img; ?>',
+                            maSP: '<?= $maSP; ?>'
+                        },
+                        success: function (response) {
+                            $('.image').attr('src', '');
+                            alert(response);
+                        }
+                    });
+                }
+            </script>
+
             <div>
                 <input type="hidden" name="maSP" value="<?php if ($maSP > 0)
                     echo $maSP; ?>">

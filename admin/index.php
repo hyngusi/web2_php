@@ -68,8 +68,8 @@ switch ($act) {
         include 'SanPham/addSanpham.php';
         break;
 
+    // -------------------------------------------------------------------------- get danhSach
 
-    // ----------------------------------------------------------------------------- get
     case 'danhSachChatLieu':
         $sql = "select * from chatlieusp";
         $danhsach = pdo_query($sql);
@@ -79,21 +79,23 @@ switch ($act) {
     case 'danhsachDoiTuong':
         $sql = "select * from doituongsd";
         $danhsach = pdo_query($sql);
-        // var_dump($danhsach);
         include 'DoiTuongSd/danhSachDoiTuong.php';
         break;
 
-    case 'danhSachSanPham':
-        // $sql = "select * from sanpham";  
-        $sql = "select sp.*, cl.ten as chatlieu_ten, dt.ten as doituong_ten, kd.ten as kieudang_ten
-                from sanpham as sp
-                inner join chatlieusp as cl on sp.machatlieu = cl.ma
-                inner join doituongsd as dt on sp.madoituongsd = dt.ma
-                inner join kieudang as kd on sp.makieudang = kd.ma";
+    case 'danhSachKieuDang':
+        $sql = "select * from kieudang";
         $danhsach = pdo_query($sql);
+        include 'KieuDang/danhSachKieuDang.php';
+        break;
+
+    case 'danhSachSanPham':
+        $sql = "SELECT COUNT(*) FROM sanpham";
+        $totalProducts = pdo_query_value($sql);
         include 'SanPham/danhSachSp.php';
         break;
+
     // ----------------------------------------------------------------- delete
+
     case 'xoaChatLieuSp':
         if (isset($_GET['id']) && $_GET['id'] > 0) {
             $sql = "delete from chatlieusp where ma=" . $_GET['id'];
@@ -104,28 +106,84 @@ switch ($act) {
         include 'ChatLieuSp/danhSachChatLieu.php';
         break;
 
+    case 'xoaDoiTuongSd':
+        if (isset($_GET['id']) && $_GET['id'] > 0) {
+            $sql = "delete from doituongsd where ma=" . $_GET['id'];
+            pdo_execute($sql);
+        }
+        $sql = "select * from doituongsd";
+        $danhsach = pdo_query($sql);
+        include 'DoiTuongSd/danhSachDoiTuong.php';
+        break;
+
+    case 'xoaKieuDang':
+        if (isset($_GET['id']) && $_GET['id'] > 0) {
+            $sql = "delete from kieudang where ma=" . $_GET['id'];
+            pdo_execute($sql);
+        }
+        $sql = "select * from kieudang";
+        $danhsach = pdo_query($sql);
+        include 'KieuDang/danhSachKieuDang.php';
+        break;
+
     case 'xoaSanPham':
         if (isset($_GET['id']) && $_GET['id'] > 0) {
             $sql = "delete from sanpham where maSP=" . $_GET['id'];
             pdo_execute($sql);
         }
-        $sql = "select sp.*, cl.ten as chatlieu_ten, dt.ten as doituong_ten, kd.ten as kieudang_ten
-                from sanpham as sp
-                inner join chatlieusp as cl on sp.machatlieu = cl.ma
-                inner join doituongsd as dt on sp.madoituongsd = dt.ma
-                inner join kieudang as kd on sp.makieudang = kd.ma";
-        $danhsach = pdo_query($sql);
+        $sql = "SELECT COUNT(*) FROM sanpham";
+        $totalProducts = pdo_query_value($sql);
         include 'SanPham/danhsachsp.php';
         break;
 
-    // ----------------------------------------------------------- update
-    case 'suaChatLieuSp':
+    // ----------------------------------------------------------- loadUpdate
+
+    case 'loadUpdateChatLieuSp':
         if (isset($_GET['id']) && ($_GET['id'] > 0)) {
             $sql = "select * from chatlieusp where ma=" . $_GET['id'];
             $chatlieu = pdo_query_one($sql);
         }
         include 'ChatLieuSp/updateChatLieu.php';
         break;
+
+    case 'loadUpdateDoiTuongSd':
+        if (isset($_GET['id']) && ($_GET['id'] > 0)) {
+            $sql = "select * from doituongsd where ma=" . $_GET['id'];
+            $doituong = pdo_query_one($sql);
+        }
+        include 'DoiTuongSd/updateDoiTuong.php';
+        break;
+
+    case 'loadUpdateKieuDang':
+        if (isset($_GET['id']) && ($_GET['id'] > 0)) {
+            $sql = "select * from kieudang where ma=" . $_GET['id'];
+            $kieudang = pdo_query_one($sql);
+        }
+        include 'KieuDang/updateKieuDang.php';
+        break;
+
+    case 'loadUpdateSanPham':
+        if (isset($_GET['id']) && ($_GET['id'] > 0)) {
+            $sql = "select sp.*, cl.ten as chatlieu_ten, dt.ten as doituong_ten, kd.ten as kieudang_ten
+                    from sanpham as sp  
+                    inner join chatlieusp as cl on sp.machatlieu = cl.ma
+                    inner join doituongsd as dt on sp.madoituongsd = dt.ma
+                    inner join kieudang as kd on sp.makieudang = kd.ma where sp.maSP=" . $_GET['id'];
+            $sanpham = pdo_query_one($sql);
+
+            $sql = "select * from kieudang";
+            $listkieudang = pdo_query($sql);
+
+            $sql = "select * from doituongsd";
+            $listdoituongsd = pdo_query($sql);
+
+            $sql = "select * from chatlieusp";
+            $listchatlieu = pdo_query($sql);
+        }
+        include 'SanPham/updateSp.php';
+        break;
+
+    // -------------------------------------------------------------------- update
 
     case 'updateChatLieuSp':
         if (isset($_POST['capnhat']) && $_POST['ten']) {
@@ -140,28 +198,31 @@ switch ($act) {
         include 'ChatLieuSp/danhSachChatLieu.php';
         break;
 
-    case 'suaSanPham':
-        if (isset($_GET['id']) && ($_GET['id'] > 0)) {
-            $sql = "select sp.*, cl.ten as chatlieu_ten, dt.ten as doituong_ten, kd.ten as kieudang_ten
-                from sanpham as sp  
-                inner join chatlieusp as cl on sp.machatlieu = cl.ma
-                inner join doituongsd as dt on sp.madoituongsd = dt.ma
-                inner join kieudang as kd on sp.makieudang = kd.ma where sp.maSP=" . $_GET['id'];
-            $sanpham = pdo_query_one($sql);
-
-            $sql = "select * from kieudang";
-            $listkieudang = pdo_query($sql);
-
-            $sql = "select * from doituongsd";
-            $listdoituongsd = pdo_query($sql);
-
-            $sql = "select * from chatlieusp";
-            $listchatlieu = pdo_query($sql);
+    case 'updateDoiTuongSd':
+        if (isset($_POST['capnhat']) && $_POST['ten']) {
+            $ma = $_POST['ma'];
+            $ten = $_POST['ten'];
+            $sql = "update doituongsd set ten='$ten' where ma='$ma'";
+            pdo_execute($sql);
+            $thongbao = "Cập nhật thành công";
         }
-
-        include 'SanPham/updateSp.php';
+        $sql = "select * from doituongsd";
+        $danhsach = pdo_query($sql);
+        include 'DoiTuongSd/danhSachDoiTuong.php';
         break;
 
+    case 'updateKieuDang':
+        if (isset($_POST['capnhat']) && $_POST['ten']) {
+            $ma = $_POST['ma'];
+            $ten = $_POST['ten'];
+            $sql = "update kieudang set ten='$ten' where ma='$ma'";
+            pdo_execute($sql);
+            $thongbao = "Cập nhật thành công";
+        }
+        $sql = "select * from kieudang";
+        $danhsach = pdo_query($sql);
+        include 'KieuDang/danhSachKieuDang.php';
+        break;
 
     case 'updateSanPham':
         if (isset($_POST['capnhat'])) {
@@ -189,13 +250,8 @@ switch ($act) {
 
             pdo_execute($sql);
         }
-        $sql = "select sp.*, cl.ten as chatlieu_ten, dt.ten as doituong_ten, kd.ten as kieudang_ten
-                from sanpham as sp
-                inner join chatlieusp as cl on sp.machatlieu = cl.ma
-                inner join doituongsd as dt on sp.madoituongsd = dt.ma
-                inner join kieudang as kd on sp.makieudang = kd.ma
-                order by sp.maSP";
-        $danhsach = pdo_query($sql);
+        $sql = "SELECT COUNT(*) FROM sanpham";
+        $totalProducts = pdo_query_value($sql);
         include 'SanPham/danhsachsp.php';
         break;
 

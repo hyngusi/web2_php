@@ -1,6 +1,6 @@
 <div class="danhsach-container">
     <div class="title">
-        <H1>Danh sách</H1>
+        <H1>Danh sách chất liệu</H1>
     </div>
     <div class="table-container">
         <table class="data-table">
@@ -14,7 +14,7 @@
             <?php
             foreach ($danhsach as $item) {
                 extract($item);
-                $sua = "index.php?act=suaChatLieuSp&id=" . $ma;
+                $sua = "index.php?act=loadUpdateChatLieuSp&id=" . $ma;
                 $xoa = "index.php?act=xoaChatLieuSp&id=" . $ma;
 
                 echo '<tr>
@@ -22,7 +22,8 @@
                 <td>' . $ma . '</td>
                 <td>' . $ten . '</td>
                 <td><a href="' . $sua . '"><input type="button" value="Sửa"></a>
-                     <a href="' . $xoa . '"><input type="button" value="Xóa"></a></td>
+                     <a href="' . $xoa . '" onclick="return confirm(\'Bạn có chắc chắn muốn xóa chất liệu này?\')">
+                     <input type="button" value="Xóa"></a></td>
             </tr>';
             }
             ?>

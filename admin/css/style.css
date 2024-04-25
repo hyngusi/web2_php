@@ -97,6 +97,17 @@ input[type="button"]:hover {
 
 
 /* ----------------------------------------- css danhsach*/
+/*  phân trang */
+.page-number {
+    color: blue;
+    text-decoration: none;
+    margin: 5px;
+}
+
+.current-page {
+    color: red;
+}
+
 .danhsach-container {
     width: 70%;
 }
