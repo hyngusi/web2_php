@@ -68,6 +68,10 @@ switch ($act) {
         include 'SanPham/addSanpham.php';
         break;
 
+    case 'addUser':
+        include 'User/addUser.php';
+        break;
+
     // -------------------------------------------------------------------------- get danhSach
 
     case 'danhSachChatLieu':
@@ -92,6 +96,15 @@ switch ($act) {
         $sql = "SELECT COUNT(*) FROM sanpham";
         $totalProducts = pdo_query_value($sql);
         include 'SanPham/danhSachSp.php';
+        break;
+
+    case 'danhSachHoaDon':
+        $sql = "SELECT hoadon.*, users.username as tenKH, trangthai.trangthai as TT
+                FROM hoadon
+                INNER JOIN users ON hoadon.maKH = users.userID
+                INNER JOIN trangthai ON hoadon.trangthai = trangthai.ma";
+        $danhsach = pdo_query($sql);
+        include 'HoaDon/danhSachHoaDon.php';
         break;
 
     // ----------------------------------------------------------------- delete

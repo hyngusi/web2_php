@@ -23,8 +23,8 @@
                     <li><a href="index.php?act=addChatLieuSp">Chất liệu sản phẩm</a></li>
                     <li><a href="index.php?act=addDoiTuongSd">Đối tượng sử dụng</a></li>
                     <li><a href="index.php?act=addKieuDang">Kiểu dáng</a></li>
-                    <li><a href="index.php?act=dskh">Người dùng</a></li>
-                    <li><a href="index.php?act=dskh">Hóa đơn</a></li>
+                    <li><a href="index.php?act=addUser">Người dùng</a></li>
+                    <li><a href="index.php?act=danhSachHoaDon">Hóa đơn</a></li>
                     <li><a href="index.php?act=thongke">Thống kê</a></li>
                 </ul>
             </div>
