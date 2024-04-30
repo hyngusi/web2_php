@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $startDate = '2000-01-01';
         $endDate = date('Y-m-d');
     }
-    // // Perform the filtering logic here
+
     // $db = new PDO('mysql:host=localhost;dbname=shopmatkinh_db', 'root', '');
     // $stmt = $db->prepare("SELECT hoadon.*, users.username as tenKH, trangthai.trangthai as TT
     //                     FROM hoadon 

@@ -1,1 +1,4 @@
-<h1>control pannel</h1>
+<h2>
+    <?php if (isset($thongbao) && ($thongbao != ''))
+        echo $thongbao; ?>
+</h2>

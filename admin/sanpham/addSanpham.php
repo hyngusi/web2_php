@@ -3,13 +3,13 @@
     <div class="row">
         <form action="index.php?act=addSanPham" method="post" enctype="multipart/form-data">
             <div class="row">
-                Tên sản phẩm: <input type="text" name="tenSP">
+                Tên sản phẩm: <input type="text" name="tenSP" required="true">
             </div>
             <div class="row">
-                Số lượng: <input type="text" name="soluong">
+                Số lượng: <input type="number" name="soluong" required="true">
             </div>
             <div class="row">
-                Đơn giá: <input type="text" name="dongia">
+                Đơn giá: <input type="text" name="dongia" required="true">
             </div>
             <div class="row">
                 Kiểu dáng:

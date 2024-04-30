@@ -3,7 +3,7 @@
     <div class="row">
         <form action="index.php?act=addChatLieuSp" method="post">
             <div class="row">
-                Tên chất liệu: <input type="text" name="ten">
+                Tên chất liệu: <input type="text" name="ten" required="true">
             </div>
             <div class="">
                 <input type="submit" name="themmoi" value="Thêm mới">
