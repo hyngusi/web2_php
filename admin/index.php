@@ -13,8 +13,16 @@ include "./model/pdo.php";
 include "header.php";
 
 $requested_action = $_GET['act'];
-if ($requested_action == 'qlquyen') {
+if ($user_role == 0 && $requested_action == 'qlquyen') {
     include 'Quyen/qlquyen.php';
+    exit;
+} elseif ($user_role == 0 && $requested_action == 'user') {
+    $sql = "SELECT * FROM users";
+    $users = pdo_query($sql);
+
+    $sql = "SELECT * FROM roles";
+    $roles = pdo_query($sql);
+    include 'User/danhSachUser.php';
     exit;
 }
 
@@ -96,6 +104,17 @@ foreach ($allowed_actions as $action) {
 
             case 'addUser':
                 if (isset($_POST['themmoi'])) {
+                    $username = $_POST['username'];
+                    $password = $_POST['password'];
+                    $role = $_POST['vaitro'];
+                    $hoten = $_POST['hoten'];
+                    $sdt = $_POST['sdt'];
+                    $email = $_POST['email'];
+                    $diachi = $_POST['diachi'];
+
+                    $sql = "insert into users (username, password, role, hovaten, sodienthoai, email, diachi)
+                            values ('$username', '$password', '$role', '$hoten', '$sdt', '$email', '$diachi')";
+                    pdo_execute($sql);
                     $thongbao = "Thêm thành công";
                 }
                 $sql = "SELECT * FROM `roles`";
@@ -128,6 +147,15 @@ foreach ($allowed_actions as $action) {
                 $sql = "SELECT COUNT(*) FROM sanpham";
                 $totalProducts = pdo_query_value($sql);
                 include 'SanPham/danhSachSp.php';
+                break;
+
+            case 'user':
+                $sql = "SELECT * FROM users";
+                $users = pdo_query($sql);
+
+                $sql = "SELECT * FROM roles";
+                $roles = pdo_query($sql);
+                include 'User/danhSachUser.php';
                 break;
 
             case 'hoadon':
@@ -179,6 +207,18 @@ foreach ($allowed_actions as $action) {
                 $sql = "SELECT COUNT(*) FROM sanpham";
                 $totalProducts = pdo_query_value($sql);
                 include 'SanPham/danhsachsp.php';
+                break;
+
+            case 'xoaUser':
+                if (isset($_GET['id']) && $_GET['id'] > 0) {
+                    $sql = "delete from users where userID=" . $_GET['id'];
+                    pdo_execute($sql);
+                }
+                $sql = "SELECT users.*, roles.role as vaitro
+                        FROM users
+                        INNER JOIN roles ON users.role = roles.ma";
+                $users = pdo_query($sql);
+                include 'User/danhSachUser.php';
                 break;
 
             // ----------------------------------------------------------- loadUpdate

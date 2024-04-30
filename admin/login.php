@@ -19,10 +19,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+
         if ($user && $password === $user['password']) {
             extract($user);
+            if ($role == 3) {
+                $_SESSION['error_message'] = 'Bạn không có quyền truy cập';
+                header('Location: login.php');
+                exit;
+            }
+
             $_SESSION['username'] = $username;
-            $_SESSION['user_role'] = $role;
+            $_SESSION['user_role'] = $role_id;
             header('Location: index.php?act=sanpham');
             exit;
         } else {
