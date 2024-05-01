@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 01, 2024 at 08:49 AM
+-- Generation Time: May 01, 2024 at 09:13 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -153,7 +153,7 @@ INSERT INTO `permissions` (`id`, `role_id`, `action`, `can_access`, `action_trim
 (15, 1, 'Đối tượng sử dụng', 1, 'doituongsudung'),
 (16, 2, 'Đối tượng sử dụng', 0, 'doituongsudung'),
 (17, 1, 'Kiểu dáng', 1, 'kieudang'),
-(18, 2, 'Kiểu dáng', 0, 'nhanvien'),
+(18, 2, 'Kiểu dáng', 0, 'kieudang'),
 (19, 1, 'User', 1, 'user'),
 (20, 2, 'User', 0, 'user'),
 (21, 1, 'Hóa đơn', 1, 'hoadon'),
