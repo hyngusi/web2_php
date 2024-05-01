@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // $filteredData = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $sql = "SELECT hoadon.*, users.username as tenKH, trangthai.trangthai as TT
             FROM hoadon 
-            INNER JOIN users ON hoadon.maKH = users.userID
+            INNER JOIN users ON hoadon.maKH = users.    userID
             INNER JOIN trangthai ON hoadon.trangthai = trangthai.ma
             WHERE ngayxuatHD BETWEEN '$startDate' AND '$endDate'";
     $filteredData = pdo_query($sql);
@@ -49,7 +49,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $statusSelectHTML .= '</select>';
 
         $filteredTableHTML .= '<tr>
-                <td><input type="checkbox"></td>
                 <td>' . $maHD . '</td>  
                 <td>' . $ngayxuatHD . '</td>
                 <td>' . $tenKH . '</td>

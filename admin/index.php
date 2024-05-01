@@ -106,14 +106,14 @@ foreach ($allowed_actions as $action) {
                 if (isset($_POST['themmoi'])) {
                     $username = $_POST['username'];
                     $password = $_POST['password'];
-                    $role = $_POST['vaitro'];
+                    $role_id = $_POST['vaitro'];
                     $hoten = $_POST['hoten'];
                     $sdt = $_POST['sdt'];
                     $email = $_POST['email'];
                     $diachi = $_POST['diachi'];
 
-                    $sql = "insert into users (username, password, role, hovaten, sodienthoai, email, diachi)
-                            values ('$username', '$password', '$role', '$hoten', '$sdt', '$email', '$diachi')";
+                    $sql = "insert into users (username, password, role_id, hovaten, sodienthoai, email, diachi)
+                            values ('$username', '$password', '$role_id', '$hoten', '$sdt', '$email', '$diachi')";
                     pdo_execute($sql);
                     $thongbao = "Thêm thành công";
                 }

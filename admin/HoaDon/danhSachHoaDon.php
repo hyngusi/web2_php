@@ -14,7 +14,7 @@
     <div class="table-container">
         <table class="data-table">
             <tr>
-                <td></td>
+                <!-- <td></td> -->
                 <td>Mã HĐ</td>
                 <td>Ngày xuất</td>
                 <td>Khách Hàng</td>

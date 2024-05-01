@@ -13,7 +13,7 @@
     <div class="table-container">
         <table class="data-table">
             <tr>
-                <td></td>
+                <td>ID</td>
                 <td>Username</td>
                 <td>Họ tên</td>
                 <td>SĐT</td>
@@ -29,6 +29,7 @@
                 $xoa = "index.php?act=xoaUser&id=" . $userID;
 
                 echo '<tr>
+                <td>' . $userID . '</td>
                 <td>' . $username . '</td>
                 <td>' . $hovaten . '</td>
                 <td>' . $sodienthoai . '</td>

@@ -22,8 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($user && $password === $user['password']) {
             extract($user);
-            if ($role == 3) {
-                $_SESSION['error_message'] = 'Bạn không có quyền truy cập';
+            if ($role_id == 3) {
+                $_SESSION['error_message'] = 'Bạn không có quyền truy cập trang này';
                 header('Location: login.php');
                 exit;
             }
@@ -50,13 +50,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <head>
     <title>Login</title>
+    <link rel="stylesheet" href="./css/login.css">
 </head>
 
 <body>
-    <h1>Login</h1>
+    <h1>Login Admin</h1>
     <?php if (isset($_SESSION['error_message'])): ?>
-        <p style="color: red;"><?php echo $_SESSION['error_message']; ?></p>
-        <?php unset($_SESSION['error_message']); ?>
+        <p class="error-message"><?php echo $_SESSION['error_message']; ?></p>
     <?php endif; ?>
     <form method="post" action="">
         <label for="username">Username:</label>
