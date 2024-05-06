@@ -340,6 +340,10 @@ foreach ($allowed_actions as $action) {
                 include 'SanPham/danhsachsp.php';
                 break;
 
+            // ------------------------------------------------------------- thong ke
+            case 'thongke':
+                include 'ThongKe/thongke.php';
+                break;
 
 
             default:
