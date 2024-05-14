@@ -268,6 +268,27 @@ foreach ($allowed_actions as $action) {
                 include 'SanPham/updateSp.php';
                 break;
 
+            case 'CTHoaDon':
+                if (isset($_GET['id']) && ($_GET['id'] > 0)) {
+                    $maHD = intval($_GET['id']);
+                    $sql = "SELECT * FROM hoadon WHERE maHD = $maHD";
+                    $hoadon = pdo_query($sql);
+
+                    if (count($hoadon) > 0) {
+                        $hoadon = $hoadon[0];
+                        $ngayxuatHD = $hoadon['ngayxuatHD'];
+                        $thanhtien = $hoadon['thanhtien'];
+
+                        $sql = "SELECT chitiethoadon.*, sanpham.tensp 
+                FROM chitiethoadon 
+                JOIN sanpham ON chitiethoadon.maSP = sanpham.maSP 
+                WHERE chitiethoadon.maHD = $maHD";
+                        $result = pdo_query($sql);
+                    }
+                }
+                include 'HoaDon/chiTietHoaDon.php';
+                break;
+
             // -------------------------------------------------------------------- update
 
             case 'updateChatLieuSp':
@@ -359,6 +380,8 @@ if (!$has_access) {
     exit;
 }
 
-
-include "footer.php";
 ?>
+
+</body>
+
+</html>

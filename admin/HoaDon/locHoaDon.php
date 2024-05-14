@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Iterate over the filtered data and generate table rows
     foreach ($filteredData as $item) {
         extract($item);
-        $xem = "index.php?act=CTHD&id=" . $maHD;
+        $xem = "index.php?act=CTHoaDon&id=" . $maHD;
 
         // Generate the status select field HTML
         $statusSelectHTML = '<select class="status-select" data-hoadon-id="' . $maHD . '">';

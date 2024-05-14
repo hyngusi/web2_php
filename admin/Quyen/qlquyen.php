@@ -10,7 +10,6 @@ if (!isset($_SESSION['username']) || $_SESSION['user_role'] !== 0) {
 
 // Xử lý khi admin lưu thay đổi quyền
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Xử lý dữ liệu form gửi đi
     $manager_permissions = isset($_POST['manager_permissions']) ? $_POST['manager_permissions'] : [];
     $employee_permissions = isset($_POST['employee_permissions']) ? $_POST['employee_permissions'] : [];
 
@@ -37,11 +36,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $sql = "SELECT action, can_access, role_id FROM permissions";
 $permissions = pdo_query($sql);
 
-// Nếu không có hành động nào tồn tại, thêm tất cả các hành động vào bảng permissions
 if (empty($permissions)) {
     $all_actions = ['Sản Phẩm', 'Chất liệu', 'Đối tượng sử dụng', 'Kiểu dáng', 'User', 'Hóa đơn', 'Thống kê'];
     $roles = [1, 2]; // role_id cho Quản lý và Nhân viên
-
 
     foreach ($all_actions as $action) {
         foreach ($roles as $role_id) {
@@ -50,7 +47,7 @@ if (empty($permissions)) {
         }
     }
 
-    // Sau khi thêm, lấy lại danh sách permissions
+    // Sau khi thêm, load lại danh sách permissions
     $sql = "SELECT action, can_access, role_id FROM permissions";
     $permissions = pdo_query($sql);
 }
