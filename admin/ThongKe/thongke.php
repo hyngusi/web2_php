@@ -1,4 +1,4 @@
-<div class="section" id="sales_statistic_section">
+<!-- <div class="section" id="sales_statistic_section">
     <h2>Thống kê tình hình kinh doanh</h2>
     <form id="sales_statistic_form">
         <label for="start_date_sales">Từ ngày:</label>
@@ -8,7 +8,7 @@
         <input type="button" value="Thống kê" onclick="getSalesStatistic()">
     </form>
     <div id="sales_statistic_result"></div>
-</div>
+</div> -->
 
 <div class="section" id="best_selling_section">
     <h2>Thống kê sản phẩm bán chạy</h2>
@@ -24,14 +24,14 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    function getSalesStatistic() {
-        var start_date = $("#start_date_sales").val();
-        var end_date = $("#end_date_sales").val();
+    // function getSalesStatistic() {
+    //     var start_date = $("#start_date_sales").val();
+    //     var end_date = $("#end_date_sales").val();
 
-        $.post("sales_statistic.php", { start_date: start_date, end_date: end_date }, function (data) {
-            $("#sales_statistic_result").html(data);
-        });
-    }
+    //     $.post("sales_statistic.php", { start_date: start_date, end_date: end_date }, function (data) {
+    //         $("#sales_statistic_result").html(data);
+    //     });
+    // }
 
     function getBestSellingProducts() {
         var start_date = $('#start_date_products').val() || '2000-01-01';
